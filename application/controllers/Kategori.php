@@ -40,6 +40,45 @@ class Kategori extends MY_Controller
 		redirect('home');
 	}
 
+	public function edit()
+	{
+		$id = $this->input->post('id');
+		if ($id) {
+			if ($this->input->is_ajax_request()) {
+				$get_data = $this->kategori_model->get_by_id(['id' => $id]);
+				if ($get_data) {
+					echo json_encode(['error' => 1, 'message' => 'data available.', 'data' => $get_data]);
+					exit();
+				} else {
+					echo json_encode(['error' => 0, 'message' => 'no data found.', 'url' => site_url('kategori')]);
+					exit();
+				}
+			}
+		}
+		redirect('kategori');
+	}
+
+	public function update()
+	{
+		if ($this->input->is_ajax_request()) {
+			$this->form_validation->set_rules('nama', 'Nama Kategori', 'required');
+			$this->form_validation->set_error_delimiters('', '');
+			if ($this->form_validation->run() == FALSE) {
+				echo json_encode(['error' => 0, 'message' => form_error('nama'), 'url' => site_url('kategori')]);
+				exit();
+			} else {
+				$this->kategori_model->update(['nama_kategori' => $this->input->post('nama')], ['id' => $this->input->post('id_edit')]);
+				$message = 'Data berhasil di update.';
+				$this->session->set_flashdata('sukses', $message);
+				echo json_encode(['error' => 1, 'message' => $message, 'url' => site_url('kategori')]);
+				exit();
+			}
+
+		}
+		
+		redirect('kategori');
+	}
+
 	public function destroy()
 	{
 		if ($this->input->is_ajax_request()) {

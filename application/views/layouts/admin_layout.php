@@ -68,6 +68,9 @@
     <!-- AdminLTE for demo purposes -->
     <script src="<?php echo asset_url() ?>js/demo.js"></script>
     <?php echo $js; ?>
+    <script type="text/javascript">
+    var base_url = "<?php echo base_url()?>";
+    </script>
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
