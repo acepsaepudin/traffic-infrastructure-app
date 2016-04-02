@@ -37,7 +37,7 @@ $(function(){
 		return false;
 	});
 	//submit form delete
-	$('.form-delete-kategori').on('submit', function(){
+	$('.form-delete-karyawan').on('submit', function(){
 		$.ajax({
 			type: 'POST',
 			url: $(this).attr('action'),
@@ -88,8 +88,8 @@ function newFunc () {
 }
 
 function deleteFunc (id) {
-	$('#kategori_id').val(id);
-	$('.delete-modal-kategori').modal();
+	$('#karyawan_id').val(id);
+	$('.delete-modal-karyawan').modal();
 }
 
 function EditKategori (id) {

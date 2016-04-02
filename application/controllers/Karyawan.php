@@ -54,5 +54,25 @@ class Karyawan extends MY_Controller {
 		}
 		redirect('home');
 	}
+	public function destroy()
+	{
+		if ($this->input->is_ajax_request()) {
+			$id = $this->input->post('karyawan_id');
 
+			$data = $this->Karyawan_model->get_by_id(array('id' => $id));
+			if ($data) {
+				$this->Karyawan_model->destroy(array('id' => $id));
+				$message = 'sukses menghapus data karyawan';
+				$this->session->set_flashdata('sukses', $message);
+				echo json_encode(array('error' => 1, 'message' => $message, 'url' => site_url('karyawan')));
+				exit();
+			} else {
+				$message = 'Data karyawan tidak ditemukan';
+				$this->session->set_flashdata('error', $message);
+				echo json_encode(array('error' => 0, 'message' => $message, 'url' => site_url('karyawan')));
+				exit();
+			}
+		}
+		redirect('home');
+	}
 }
