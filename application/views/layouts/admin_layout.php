@@ -172,6 +172,12 @@
               </a>
             </li>
             <li>
+              <a href="<?php echo site_url('karyawan') ?>">
+                <i class="fa fa-th"></i> <span>Karyawan</span>
+              </a>
+            </li>
+
+            <li>
               <a href="<?php echo site_url('kategori') ?>">
                 <i class="fa fa-th"></i> <span>Kategori</span>
               </a>

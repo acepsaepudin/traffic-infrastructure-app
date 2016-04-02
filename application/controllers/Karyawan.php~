@@ -1,0 +1,20 @@
+<?php
+class Karyawan extends MY_Controller {
+
+    function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Karyawan_model');
+	}
+
+    public function index()
+    {
+        $this->stencil->js(array('jquery.dataTables.min', 'dataTables.bootstrap.min','kategori/kategori.js'));
+		$this->stencil->css('dataTables.bootstrap');
+		$data['karyawan'] = $this->Karyawan_model->get_all()->result();
+		
+		$this->stencil->paint('karyawan/index', $data);
+ 
+    }
+
+}
