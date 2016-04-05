@@ -56,7 +56,7 @@ $(function(){
 	});
 
 	//submit form update
-	$('.form-update-kategori').on('submit', function(){
+	$('.form-update-karyawan').on('submit', function(){
 		$.ajax({
 			type: 'POST',
 			url: $(this).attr('action'),
@@ -64,8 +64,26 @@ $(function(){
 			dataType: 'json',
 			success: function(data){
 				if (data.error === 0) {
-					$('.form-group-nama-edit').addClass('has-error');
-					$('#error-message-edit').html(data.message);
+                    if((data.message.nama_edit).length > 0){
+					    $('.form-group-nama-edit').addClass('has-error');
+                        $('.error-message-nama-edit').html(data.message.nama_edit);
+                    }
+
+                    if((data.message.notlp_edit).length > 0){
+					    $('.form-group-notlp-edit').addClass('has-error');
+                        $('.error-message-notlp-edit').html(data.message.notlp_edit);
+                    }
+
+                    if((data.message.email_edit).length > 0){
+					    $('.form-group-email-edit').addClass('has-error');
+                        $('.error-message-email-edit').html(data.message.email_edit);
+                    }
+
+                    if((data.message.alamat_edit).length > 0){
+					    $('.form-group-alamat-edit').addClass('has-error');
+                        $('.error-message-alamat-edit').html(data.message.alamat_edit);
+                    }
+
 				}
 				if (data.error === 1) {
 					window.location.href = data.url;
@@ -92,18 +110,21 @@ function deleteFunc (id) {
 	$('.delete-modal-karyawan').modal();
 }
 
-function EditKategori (id) {
-	$('.form-group-nama-edit').removeClass('has-error');
-	$('#error-message-edit').html('');
+function EditKaryawan (id) {
+	$('.form-group').removeClass('has-error');
+    $('.error-message-nama-edit').html(''); // clear the error message after cancel button has typed 
+	$('.error-message-notlp-edit').html(''); // clear the error message after cancel button has typed 
+	$('.error-message-email-edit').html(''); // clear the error message after cancel button has typed 
+	$('.error-message-alamat-edit').html(''); // clear the error message after cancel button has typed 
 	$('#id_edit').val(id);
-	get_kategori(id);
-	$('.update-modal-kategori').modal();
+	get_karyawan(id);
+	$('.update-modal-karyawan').modal();
 }
 
-function get_kategori (id) {
+function get_karyawan (id) {
 	$.ajax({
 		type: 'POST',
-		url: base_url+'kategori/edit',
+		url: base_url+'karyawan/edit',
 		data: {id: id},
 		dataType: 'json',
 		success: function(data){
@@ -111,8 +132,13 @@ function get_kategori (id) {
 				window.location.href = data.url;
 			}
 			if (data.error === 1) {
-				$('#id_edit').val(data.data.id);
-				$('#nama-kategori-edit').val(data.data.nama_kategori);
+				$('#id_edit').empty().val(data.data.id);
+				$('#nama-edit').empty().val(data.data.nama);
+				$('#jenis_kelamin-edit').val(data.data.jenis_kelamin);
+				$('#notlp-edit').empty().val(data.data.notlpn);
+				$('#email-edit').empty().val(data.data.email);
+				$('#jabatan-edit').val(data.data.jabatan);
+				$('#alamat-edit').empty().val(data.data.alamat);
 			}
 		}
 	});

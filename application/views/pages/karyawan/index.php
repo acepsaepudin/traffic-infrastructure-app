@@ -25,7 +25,7 @@
           <td><?php echo $k->email; ?></td>
           <td><?php echo $k->jabatan; ?></td>
           <td>
-            <button class="btn btn-sm btn-info btn-flat" onclick="EditKategori(<?php echo $k->id ?>)">Edit</button>
+            <button class="btn btn-sm btn-info btn-flat" onclick="EditKaryawan(<?php echo $k->id ?>)">Edit</button>
             <button class="btn btn-sm btn-danger btn-flat" onclick="deleteFunc(<?php echo $k->id ?>)">Delete</button>
           </td>
         </tr>
@@ -145,25 +145,70 @@
 </div>
 
 <!--modal update kategori -->
-<div class="modal fade update-modal-kategori">
+<div class="modal fade update-modal-karyawan">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Form Kategori</h4>
+        <h4 class="modal-title">Form Update Data Karyawan</h4>
       </div>
       <div class="modal-body">
         <!-- <form class="form-horizontal form-new-kategori"> -->
-        <?php echo form_open('kategori/update',array('class' => 'form-horizontal form-update-kategori')) ?>
+        <?php echo form_open('karyawan/update',array('class' => 'form-horizontal form-update-karyawan')) ?>
           <div class="box-body">
             <div class="form-group form-group-nama-edit">
               <label for="inputEmail3" class="col-sm-2 control-label">Nama</label>
               <div class="col-sm-10">
                 <input type="hidden" name="id_edit" id="id_edit">
-                <input type="text" class="form-control" name="nama" id="nama-kategori-edit" >
-                <p id="error-message-edit"></p>
+                <input type="text" class="form-control" name="nama_edit" id="nama-edit" >
+                <p class="error-message-nama-edit"></p>
               </div>
             </div>
+
+            <div class="form-group form-group-jenis_kelamin-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Jenis Kelamin</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="jenis_kelamin_edit" id="jenis_kelamin-edit">
+                   <option value="1">Laki-laki</option>
+                   <option value="2">Perempuan</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group form-group-notlp-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">No Tlp</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="notlp_edit" id="notlp-edit" >
+                <p class="error-message-notlp-edit"></p>
+              </div>
+            </div>
+
+            <div class="form-group form-group-email-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="email_edit" id="email-edit" >
+                <p class="error-message-email-edit"></p>
+              </div>
+            </div>
+ 
+            <div class="form-group form-group-jabatan-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Jabatan</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="jabatan_edit" id="jabatan-edit">
+                   <option value="1">Admin</option>
+                   <option value="2">Operator</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group form-group-alamat-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" rows="3" name="alamat_edit" id="alamat-edit"></textarea>
+                <p class="error-message-alamat-edit"></p>
+              </div>
+            </div>
+
           </div><!-- /.box-body -->
           <div class="modal-footer">
             <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
