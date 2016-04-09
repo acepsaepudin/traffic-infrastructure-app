@@ -3,6 +3,7 @@ $(function(){
 	$('#tabel-kategori').dataTable();
 	//submit new kategori form
 	$('.form-new-karyawan').on('submit', function(){
+        clearInput();
 		$.ajax({
 			type: 'POST',
 			url: $(this).attr('action'),
@@ -57,6 +58,7 @@ $(function(){
 
 	//submit form update
 	$('.form-update-karyawan').on('submit', function(){
+        clearInputEdit();
 		$.ajax({
 			type: 'POST',
 			url: $(this).attr('action'),
@@ -143,4 +145,26 @@ function get_karyawan (id) {
 		}
 	});
 	return false;
+}
+function clearInput() {
+    $('.form-group-nama').removeClass('has-error');
+    $('.error-message-nama').html('');
+    $('.form-group-notlp').removeClass('has-error');
+    $('.error-message-notlp').html('');
+    $('.form-group-email').removeClass('has-error');
+    $('.error-message-email').html('');
+    $('.form-group-alamat').removeClass('has-error');
+    $('.error-message-alamat').html('');
+
+}
+function clearInputEdit() {
+    $('.form-group-nama-edit').removeClass('has-error');
+    $('.error-message-nama-edit').html('');
+    $('.form-group-notlp-edit').removeClass('has-error');
+    $('.error-message-notlp-edit').html('');
+    $('.form-group-email-edit').removeClass('has-error');
+    $('.error-message-email-edit').html('');
+    $('.form-group-alamat-edit').removeClass('has-error');
+    $('.error-message-alamat-edit').html('');
+
 }
