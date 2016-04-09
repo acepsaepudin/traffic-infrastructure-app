@@ -171,6 +171,7 @@
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa pull-right"></i>
               </a>
             </li>
+
             <li>
               <a href="<?php echo site_url('karyawan') ?>">
                 <i class="fa fa-th"></i> <span>Karyawan</span>
@@ -182,6 +183,13 @@
                 <i class="fa fa-th"></i> <span>Kategori</span>
               </a>
             </li>
+
+            <li>
+              <a href="<?php echo site_url('prasarana') ?>">
+                <i class="fa fa-th"></i> <span>Prasarana</span>
+              </a>
+            </li>
+
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-pie-chart"></i>

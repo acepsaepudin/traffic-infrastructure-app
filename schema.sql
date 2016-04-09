@@ -16,3 +16,15 @@ create table karyawan(
     jabatan varchar(200),
     primary key(id)
 );
+
+DROP TABLE IF EXISTS prasarana;
+create table prasarana(
+    id int(11) not null auto_increment,
+    nama varchar(200),
+    lokasi varchar(200),
+    longitude varchar(200),
+    latitude varchar(200),
+    kategori_id_kategori int(11),
+    primary key(id),
+    constraint prasarana_kategori_fk foreign key (kategori_id_kategori) references kategori(id)
+);
