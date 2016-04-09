@@ -118,19 +118,19 @@ class Prasarana extends MY_Controller {
 	public function destroy()
 	{
 		if ($this->input->is_ajax_request()) {
-			$id = $this->input->post('karyawan_id');
+			$id = $this->input->post('prasarana_id');
 
-			$data = $this->Karyawan_model->get_by_id(array('id' => $id));
+			$data = $this->Prasarana_model->get_by_id(array('id' => $id));
 			if ($data) {
-				$this->Karyawan_model->destroy(array('id' => $id));
-				$message = 'sukses menghapus data karyawan';
+				$this->Prasarana_model->destroy(array('id' => $id));
+				$message = 'sukses menghapus data Prasarana';
 				$this->session->set_flashdata('sukses', $message);
-				echo json_encode(array('error' => 1, 'message' => $message, 'url' => site_url('karyawan')));
+				echo json_encode(array('error' => 1, 'message' => $message, 'url' => site_url('prasarana')));
 				exit();
 			} else {
-				$message = 'Data karyawan tidak ditemukan';
+				$message = 'Data Prasaran tidak ditemukan';
                 $this->session->set_flashdata('error', $message);
-				echo json_encode(array('error' => 0, 'message' => $message, 'url' => site_url('karyawan')));
+				echo json_encode(array('error' => 0, 'message' => $message, 'url' => site_url('prasarana')));
 				exit();
 			}
 		}

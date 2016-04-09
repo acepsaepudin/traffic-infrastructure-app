@@ -38,7 +38,7 @@ $(function(){
 		return false;
 	});
 	//submit form delete
-	$('.form-delete-karyawan').on('submit', function(){
+	$('.form-delete-prasarana').on('submit', function(){
 		$.ajax({
 			type: 'POST',
 			url: $(this).attr('action'),
@@ -107,8 +107,8 @@ function newFunc () {
 }
 
 function deleteFunc (id) {
-	$('#karyawan_id').val(id);
-	$('.delete-modal-karyawan').modal();
+	$('#prasarana_id').val(id);
+	$('.delete-modal-prasarana').modal();
 }
 
 function EditKaryawan (id) {

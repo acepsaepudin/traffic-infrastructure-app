@@ -107,22 +107,22 @@
 </div>
 
 <!--modal delete confirm kategori -->
-<div class="modal fade delete-modal-karyawan">
+<div class="modal fade delete-modal-prasarana">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Konfirmasi Hapus Karyawan</h4>
+        <h4 class="modal-title">Konfirmasi Hapus Prasarana</h4>
       </div>
       <div class="modal-body">
         <!-- <form class="form-horizontal form-new-kategori"> -->
           <div class="box-body">
-            <p>Yakin akan menghapus Karyawan ini ?</p>
+            <p>Yakin akan menghapus Prasaran ini ?</p>
           </div>
       </div>
       <div class="modal-footer">
-        <?php echo form_open('karyawan/destroy',array('class' => 'form-horizontal form-delete-karyawan')) ?>
-            <input type="hidden" name="karyawan_id" id="karyawan_id">
+        <?php echo form_open('prasarana/destroy',array('class' => 'form-horizontal form-delete-prasarana')) ?>
+            <input type="hidden" name="prasarana_id" id="prasarana_id">
         <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-danger">Delete</button>
         </form>
