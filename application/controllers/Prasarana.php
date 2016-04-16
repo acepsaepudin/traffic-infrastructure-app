@@ -63,51 +63,50 @@ class Prasarana extends MY_Controller {
 		$id = $this->input->post('id');
 		if ($id) {
 			if ($this->input->is_ajax_request()) {
-				$get_data = $this->Karyawan_model->get_by_id(['id' => $id]);
+				$get_data = $this->Prasarana_model->get_by_id(['id' => $id]);
 				if ($get_data) {
 					echo json_encode(['error' => 1, 'message' => 'data available.', 'data' => $get_data]);
 					exit();
 				} else {
-					echo json_encode(['error' => 0, 'message' => 'no data found.', 'url' => site_url('karyawan')]);
+					echo json_encode(['error' => 0, 'message' => 'no data found.', 'url' => site_url('prasarana')]);
 					exit();
 				}
 			}
 		}
-		redirect('kategori');
+		redirect('prasarana');
 	}
 
 	public function update()
 	{
 		if ($this->input->is_ajax_request()) {
             $this->form_validation->set_rules('nama_edit', 'Nama Karyawan', 'required');
-			$this->form_validation->set_rules('notlp_edit', 'Nomor Telepon', 'required|numeric');
-			$this->form_validation->set_rules('email_edit', 'Email', 'required|valid_email');
-			$this->form_validation->set_rules('alamat_edit', 'Alamat', 'required');
+			$this->form_validation->set_rules('lokasi_edit', 'Lokasi', 'required');
+			$this->form_validation->set_rules('longitude_edit', 'Longitude', 'required');
+			$this->form_validation->set_rules('latitude_edit', 'Latitude', 'required');
 			$this->form_validation->set_error_delimiters('', '');
 			if ($this->form_validation->run() == FALSE) {
                 echo json_encode([
                     'error' => 0,
                     'message' => [
                         'nama_edit' => form_error('nama_edit'),
-                        'notlp_edit' => form_error('notlp_edit'),
-                        'email_edit' => form_error('email_edit'),
-                        'alamat_edit' => form_error('alamat_edit'),
+                        'lokasi_edit' => form_error('lokasi_edit'),
+                        'longitude_edit' => form_error('longitude_edit'),
+                        'latitude_edit' => form_error('latitude_edit'),
                     ],
-                    'url' => site_url('kategori')]);
+                    'url' => site_url('prasarana')]);
 				exit();
 			} else {
                 $insert_data = array(
                             'nama' => $this->input->post('nama_edit'),
-                            'notlpn' => $this->input->post('notlp_edit'),
-                            'alamat' => $this->input->post('alamat_edit'),
-                            'jenis_kelamin' => $this->input->post('jenis_kelamin_edit'),
-                            'email' => $this->input->post('email_edit'),
-                            'jabatan' => $this->input->post('jabatan_edit')
+                            'lokasi' => $this->input->post('lokasi_edit'),
+                            'longitude' => $this->input->post('longitude_edit'),
+                            'latitude' => $this->input->post('latitude_edit'),
+                            'kategori_id_kategori' => $this->input->post('kategori_edit')
                         );
-				$this->Karyawan_model->update($insert_data, ['id' => $this->input->post('id_edit')]);
+				$this->Prasarana_model->update($insert_data, ['id' => $this->input->post('id_edit')]);
 				$message = 'Data berhasil di update.';
 				$this->session->set_flashdata('sukses', $message);
-				echo json_encode(['error' => 1, 'message' => $message, 'url' => site_url('karyawan')]);
+				echo json_encode(['error' => 1, 'message' => $message, 'url' => site_url('prasarana')]);
 				exit();
 			}
 

@@ -27,7 +27,7 @@
           <td><?php echo $p->latitude; ?></td>
           <td><?php echo $p->kategori_id_kategori; ?></td>
           <td>
-            <button class="btn btn-sm btn-info btn-flat" onclick="EditKaryawan(<?php echo $p->id ?>)">Edit</button>
+            <button class="btn btn-sm btn-info btn-flat" onclick="EditPrasarana(<?php echo $p->id ?>)">Edit</button>
             <button class="btn btn-sm btn-danger btn-flat" onclick="deleteFunc(<?php echo $p->id ?>)">Delete</button>
           </td>
         </tr>
@@ -132,16 +132,16 @@
 </div>
 
 <!--modal update kategori -->
-<div class="modal fade update-modal-karyawan">
+<div class="modal fade update-modal-prasarana">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Form Update Data Karyawan</h4>
+        <h4 class="modal-title">Form Update Data Prasaran</h4>
       </div>
       <div class="modal-body">
         <!-- <form class="form-horizontal form-new-kategori"> -->
-        <?php echo form_open('karyawan/update',array('class' => 'form-horizontal form-update-karyawan')) ?>
+        <?php echo form_open('prasarana/update',array('class' => 'form-horizontal form-update-prasarana')) ?>
           <div class="box-body">
             <div class="form-group form-group-nama-edit">
               <label for="inputEmail3" class="col-sm-2 control-label">Nama</label>
@@ -151,51 +151,37 @@
                 <p class="error-message-nama-edit"></p>
               </div>
             </div>
-
-            <div class="form-group form-group-jenis_kelamin-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">Jenis Kelamin</label>
+           <div class="form-group form-group-lokasi-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Lokasi</label>
               <div class="col-sm-10">
-                <select class="form-control" name="jenis_kelamin_edit" id="jenis_kelamin-edit">
-                   <option value="1">Laki-laki</option>
-                   <option value="2">Perempuan</option>
+                <input type="text" class="form-control" name="lokasi_edit" id="lokasi-edit" >
+                <p class="error-message-lokasi-edit"></p>
+              </div>
+           </div> 
+          <div class="form-group form-group-longitude-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Longitude</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="longitude_edit" id="longitude-edit" >
+                <p class="error-message-longitude-edit"></p>
+              </div>
+          </div> 
+          <div class="form-group form-group-latitude-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Latitude</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="latitude_edit" id="latitude-edit" >
+                <p class="error-message-latitude-edit"></p>
+              </div>
+          </div>
+          <div class="form-group form-group-kategori-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Kategori</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="kategori_edit">
+                <?php foreach($kategori as $k => $v): ?> 
+                <option value="<?php echo $v->id; ?>"><?php echo $v->nama_kategori; ?></option>
+                <?php endforeach;?>
                 </select>
               </div>
-            </div>
-
-            <div class="form-group form-group-notlp-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">No Tlp</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" name="notlp_edit" id="notlp-edit" >
-                <p class="error-message-notlp-edit"></p>
-              </div>
-            </div>
-
-            <div class="form-group form-group-email-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" name="email_edit" id="email-edit" >
-                <p class="error-message-email-edit"></p>
-              </div>
-            </div>
- 
-            <div class="form-group form-group-jabatan-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">Jabatan</label>
-              <div class="col-sm-10">
-                <select class="form-control" name="jabatan_edit" id="jabatan-edit">
-                   <option value="1">Admin</option>
-                   <option value="2">Operator</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group form-group-alamat-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
-              <div class="col-sm-10">
-                <textarea class="form-control" rows="3" name="alamat_edit" id="alamat-edit"></textarea>
-                <p class="error-message-alamat-edit"></p>
-              </div>
-            </div>
-
+           </div> 
           </div><!-- /.box-body -->
           <div class="modal-footer">
             <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>

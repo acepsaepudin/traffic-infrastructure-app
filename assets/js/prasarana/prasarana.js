@@ -57,7 +57,8 @@ $(function(){
 	});
 
 	//submit form update
-	$('.form-update-karyawan').on('submit', function(){
+	$('.form-update-prasarana').on('submit', function(){
+        clearInputUpdate();
 		$.ajax({
 			type: 'POST',
 			url: $(this).attr('action'),
@@ -70,19 +71,19 @@ $(function(){
                         $('.error-message-nama-edit').html(data.message.nama_edit);
                     }
 
-                    if((data.message.notlp_edit).length > 0){
-					    $('.form-group-notlp-edit').addClass('has-error');
-                        $('.error-message-notlp-edit').html(data.message.notlp_edit);
+                    if((data.message.lokasi_edit).length > 0){
+					    $('.form-group-lokasi-edit').addClass('has-error');
+                        $('.error-message-lokasi-edit').html(data.message.lokasi_edit);
                     }
 
-                    if((data.message.email_edit).length > 0){
-					    $('.form-group-email-edit').addClass('has-error');
-                        $('.error-message-email-edit').html(data.message.email_edit);
+                    if((data.message.longitude_edit).length > 0){
+					    $('.form-group-longitude-edit').addClass('has-error');
+                        $('.error-message-longitude-edit').html(data.message.longitude_edit);
                     }
 
-                    if((data.message.alamat_edit).length > 0){
-					    $('.form-group-alamat-edit').addClass('has-error');
-                        $('.error-message-alamat-edit').html(data.message.alamat_edit);
+                    if((data.message.latitude_edit).length > 0){
+					    $('.form-group-latitude-edit').addClass('has-error');
+                        $('.error-message-latitude-edit').html(data.message.latitude_edit);
                     }
 
 				}
@@ -111,21 +112,21 @@ function deleteFunc (id) {
 	$('.delete-modal-prasarana').modal();
 }
 
-function EditKaryawan (id) {
+function EditPrasarana (id) {
 	$('.form-group').removeClass('has-error');
     $('.error-message-nama-edit').html(''); // clear the error message after cancel button has typed 
-	$('.error-message-notlp-edit').html(''); // clear the error message after cancel button has typed 
-	$('.error-message-email-edit').html(''); // clear the error message after cancel button has typed 
-	$('.error-message-alamat-edit').html(''); // clear the error message after cancel button has typed 
+	$('.error-message-lokasi-edit').html(''); // clear the error message after cancel button has typed 
+	$('.error-message-longitude-edit').html(''); // clear the error message after cancel button has typed 
+	$('.error-message-latitude-edit').html(''); // clear the error message after cancel button has typed 
 	$('#id_edit').val(id);
-	get_karyawan(id);
-	$('.update-modal-karyawan').modal();
+	get_prasarana(id);
+	$('.update-modal-prasarana').modal();
 }
 
-function get_karyawan (id) {
+function get_prasarana (id) {
 	$.ajax({
 		type: 'POST',
-		url: base_url+'karyawan/edit',
+		url: base_url+'prasarana/edit',
 		data: {id: id},
 		dataType: 'json',
 		success: function(data){
@@ -135,16 +136,16 @@ function get_karyawan (id) {
 			if (data.error === 1) {
 				$('#id_edit').empty().val(data.data.id);
 				$('#nama-edit').empty().val(data.data.nama);
-				$('#jenis_kelamin-edit').val(data.data.jenis_kelamin);
-				$('#notlp-edit').empty().val(data.data.notlpn);
-				$('#email-edit').empty().val(data.data.email);
-				$('#jabatan-edit').val(data.data.jabatan);
-				$('#alamat-edit').empty().val(data.data.alamat);
+				$('#lokasi-edit').val(data.data.lokasi);
+				$('#longitude-edit').empty().val(data.data.longitude);
+				$('#latitude-edit').empty().val(data.data.latitude);
+				$('#kategori-edit').val(data.data.kategori_id_kategori);
 			}
 		}
 	});
 	return false;
 }
+
 function clearInput() {
     $('.form-group-nama').removeClass('has-error');
     $('.error-message-nama').html('');
@@ -155,4 +156,15 @@ function clearInput() {
     $('.form-group-latitude').removeClass('has-error');
     $('.error-message-latitude').html('');
 
+}
+
+function clearInputUpdate() {
+    $('.form-group-nama-edit').removeClass('has-error');
+    $('.error-message-nama-edit').html('');
+    $('.form-group-lokasi-edit').removeClass('has-error');
+    $('.error-message-lokasi-edit').html('');
+    $('.form-group-longitude-edit').removeClass('has-error');
+    $('.error-message-longitude-edit').html('');
+    $('.form-group-latitude-edit').removeClass('has-error');
+    $('.error-message-latitude-edit').html('');
 }
