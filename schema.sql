@@ -28,3 +28,13 @@ create table prasarana(
     primary key(id),
     constraint prasarana_kategori_fk foreign key (kategori_id_kategori) references kategori(id)
 );
+
+DROP TABLE IF EXISTS users;
+create table users(
+    id int(11) not null auto_increment,
+    nama varchar(200),
+    email varchar(200),
+    password varchar(200),
+    token varchar(200),
+    primary key(id)
+);
