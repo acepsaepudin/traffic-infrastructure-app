@@ -30,7 +30,7 @@ create table prasarana(
 );
 
 DROP TABLE IF EXISTS users;
-create table users(
+create table pelapor(
     id int(11) not null auto_increment,
     nama varchar(200),
     email varchar(200),
@@ -38,3 +38,14 @@ create table users(
     token varchar(200),
     primary key(id)
 );
+DROP TABLE IF EXISTS kerusakan;
+create table kerusakan(
+    id int(11) not null auto_increment,
+    id_pelapor int(11),
+    tanggal date,
+    deskripsi varchar(200),
+    foto varchar(200),
+    status int(1),
+    primary key(id)
+);
+
