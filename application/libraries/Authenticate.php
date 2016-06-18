@@ -74,7 +74,25 @@ Class Authenticate {
         redirect('auth/login');
     }
     
-    
+    /**
+     * only admin can view
+     *
+     * @return void
+     */
+    public function only_admin()
+    {
+        $this->CI->load->model('karyawan_model');
+        $admin = $this->CI->karyawan_model->get_by_id([
+            'id' => $this->CI->session->userdata('id'),
+            'email' => $this->CI->session->userdata('email')
+        ]);
+        if ($admin) {
+            return true;
+        } else {
+            redirect('auth/login');
+        }
+        
+    }
     
     
 }

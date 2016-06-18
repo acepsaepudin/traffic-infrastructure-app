@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS kerusakan;
 create table kerusakan(
     id int(11) not null auto_increment,
     id_pelapor int(11),
-    tanggal date,
+    tanggal datetime,
     deskripsi varchar(200),
     foto varchar(200),
     status int(1),
