@@ -105,7 +105,7 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
               <!-- <div class="pull-right"> -->
-                      <a href="#" class="btn btn-danger btn-flat">Sign out</a>
+              <a href="<?php echo site_url('auth/get_logout') ?>" class="btn btn-danger btn-flat">Sign out</a>
                     <!-- </div> -->
                 <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="<?php echo asset_url()?>images/user2-160x160.jpg" class="user-image" alt="User Image">

@@ -13,6 +13,7 @@ create table karyawan(
     notlpn varchar(200),
     jenis_kelamin int(1),
     email varchar(200),
+    password varchar(200),
     jabatan varchar(200),
     primary key(id)
 );
