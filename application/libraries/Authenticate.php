@@ -19,24 +19,15 @@ Class Authenticate {
     {
         //cek from karyawan table
         $session_data = array();
-        $this->CI->load->model(['karyawan_model', 'pelapor_model']);
-        $karyawan = $this->CI->karyawan_model->get_by_id($array_data);
-        if ($karyawan) {
-            $kar = (array) $karyawan;
+        $this->CI->load->model('pengguna_model');
+        $pengguna = $this->CI->pengguna_model->get_by_id($array_data);
+        if ($pengguna) {
+            $kar = (array) $pengguna;
             $this->CI->session->set_userdata($kar);
             redirect('home');
         } else {
-            $pelapor = $this->CI->pelapor_model->get_by_id($array_data);
-
-            if ($pelapor) {
-                $pel = (array) $pelapor;
-
-                $this->CI->session->set_userdata($pel);
-                redirect('home');
-            } else {
-                $this->CI->session->set_flashdata('error','Email atau Password tidak ada.');
-                redirect('auth/login');
-            }
+            $this->CI->session->set_flashdata('error','Email atau Password tidak ada.');
+            redirect('auth/login');
         }
     }
 
@@ -81,8 +72,8 @@ Class Authenticate {
      */
     public function only_admin()
     {
-        $this->CI->load->model('karyawan_model');
-        $admin = $this->CI->karyawan_model->get_by_id([
+        $this->CI->load->model('pengguna_model');
+        $admin = $this->CI->pengguna_model->get_by_id([
             'id' => $this->CI->session->userdata('id'),
             'email' => $this->CI->session->userdata('email')
         ]);
