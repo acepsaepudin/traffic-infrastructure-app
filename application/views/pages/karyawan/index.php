@@ -1,7 +1,7 @@
 <div class="col-xs-12">
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">Data Karyawan </h3>
+    <h3 class="box-title">Data Pengguna </h3>
   <div class="pull-right">
     <a href="javascript:void(0)" onclick="newFunc()" class="btn btn-lg btn-success btn-flat">new</a><br>
   </div>
@@ -23,7 +23,7 @@
           <td><?php echo $k->nama; ?></td>
           <td><?php echo $k->alamat; ?></td>
           <td><?php echo $k->email; ?></td>
-          <td><?php echo $k->jabatan; ?></td>
+          <td><?=konversi('status_pengguna', $k->status)?></td>
           <td>
             <button class="btn btn-sm btn-info btn-flat" onclick="EditKaryawan(<?php echo $k->id ?>)">Edit</button>
             <button class="btn btn-sm btn-danger btn-flat" onclick="deleteFunc(<?php echo $k->id ?>)">Delete</button>
@@ -47,16 +47,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Form Karyawan</h4>
+        <h4 class="modal-title">Form Pengguna</h4>
       </div>
       <div class="modal-body">
         <!-- <form class="form-horizontal form-new-kategori"> -->
-        <?php echo form_open('karyawan/create',array('class' => 'form-horizontal form-new-karyawan')) ?>
+        <?php echo form_open('pengguna/create',array('class' => 'form-horizontal form-new-karyawan')) ?>
           <div class="box-body">
             <div class="form-group has-error form-group-nama">
               <label for="inputEmail3" class="col-sm-2 control-label">Nama</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="nama" id="nama-karyawan" placeholder="Nama Karyawan">
+                <input type="text" class="form-control" name="nama" id="nama-karyawan" placeholder="Nama Pengguna">
                 <p class="error-message-nama"></p>
               </div>
             </div>
@@ -85,12 +85,20 @@
               </div>
             </div>
 
+            <div class="form-group has-error form-group-password">
+              <label for="inputEmail3" class="col-sm-2 control-label">Password</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+                <p class="error-message-password"></p>
+              </div>
+            </div>
             <div class="form-group form-group-jabatan">
               <label for="inputEmail3" class="col-sm-2 control-label">Jabatan</label>
               <div class="col-sm-10">
                 <select class="form-control" name="jabatan">
-                    <option value="1">Admin</option>
-                    <option value="2">Operator</option>
+                  <?php foreach($this->config->item('status_pengguna') as $k => $v):?>
+                    <option value="<?=$k?>"><?=$v?></option>
+                  <?php endforeach?>
                 </select>
               </div>
             </div>
@@ -125,16 +133,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Konfirmasi Hapus Karyawan</h4>
+        <h4 class="modal-title">Konfirmasi Hapus Pengguna</h4>
       </div>
       <div class="modal-body">
         <!-- <form class="form-horizontal form-new-kategori"> -->
           <div class="box-body">
-            <p>Yakin akan menghapus Karyawan ini ?</p>
+            <p>Yakin akan menghapus Pengguna ini ?</p>
           </div>
       </div>
       <div class="modal-footer">
-        <?php echo form_open('karyawan/destroy',array('class' => 'form-horizontal form-delete-karyawan')) ?>
+        <?php echo form_open('pengguna/destroy',array('class' => 'form-horizontal form-delete-karyawan')) ?>
             <input type="hidden" name="karyawan_id" id="karyawan_id">
         <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-danger">Delete</button>
@@ -150,11 +158,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">Form Update Data Karyawan</h4>
+        <h4 class="modal-title">Form Update Data Pengguna</h4>
       </div>
       <div class="modal-body">
         <!-- <form class="form-horizontal form-new-kategori"> -->
-        <?php echo form_open('karyawan/update',array('class' => 'form-horizontal form-update-karyawan')) ?>
+        <?php echo form_open('pengguna/update',array('class' => 'form-horizontal form-update-karyawan')) ?>
           <div class="box-body">
             <div class="form-group form-group-nama-edit">
               <label for="inputEmail3" class="col-sm-2 control-label">Nama</label>
@@ -195,8 +203,9 @@
               <label for="inputEmail3" class="col-sm-2 control-label">Jabatan</label>
               <div class="col-sm-10">
                 <select class="form-control" name="jabatan_edit" id="jabatan-edit">
-                   <option value="1">Admin</option>
-                   <option value="2">Operator</option>
+                  <?php foreach($this->config->item('status_pengguna') as $k => $v):?>
+                    <option value="<?=$k?>"><?=$v?></option>
+                  <?php endforeach?>
                 </select>
               </div>
             </div>

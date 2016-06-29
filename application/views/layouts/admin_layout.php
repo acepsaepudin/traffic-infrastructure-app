@@ -173,8 +173,8 @@
             </li>
 
             <li>
-              <a href="<?php echo site_url('karyawan') ?>">
-                <i class="fa fa-th"></i> <span>Karyawan</span>
+              <a href="<?php echo site_url('pengguna') ?>">
+                <i class="fa fa-th"></i> <span>Pengguna</span>
               </a>
             </li>
 

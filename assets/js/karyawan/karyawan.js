@@ -27,6 +27,10 @@ $(function(){
 					    $('.form-group-alamat').addClass('has-error');
                         $('.error-message-alamat').html(data.message.alamat);
                     }
+                    if((data.message.password).length > 0){
+					    $('.form-group-password').addClass('has-error');
+                        $('.error-message-password').html(data.message.password);
+                    }
 				}
 				if (data.error === 1) {
 					// $('#message-success-js').html(data.message);
@@ -126,7 +130,7 @@ function EditKaryawan (id) {
 function get_karyawan (id) {
 	$.ajax({
 		type: 'POST',
-		url: base_url+'karyawan/edit',
+		url: base_url+'pengguna/edit',
 		data: {id: id},
 		dataType: 'json',
 		success: function(data){
@@ -139,7 +143,7 @@ function get_karyawan (id) {
 				$('#jenis_kelamin-edit').val(data.data.jenis_kelamin);
 				$('#notlp-edit').empty().val(data.data.notlpn);
 				$('#email-edit').empty().val(data.data.email);
-				$('#jabatan-edit').val(data.data.jabatan);
+				$('#jabatan-edit').val(data.data.status);
 				$('#alamat-edit').empty().val(data.data.alamat);
 			}
 		}
