@@ -35,8 +35,7 @@ class Pengguna extends MY_Controller {
                     'message' => array(
                         'nama' => form_error('nama'),
                         'notlp' => form_error('notlp'),
-                        'email' => form_error('email'),
-                        'alamat' => form_error('alamat'),
+                        'email' => form_error('email'), 'alamat' => form_error('alamat'),
                         'password' => form_error('password')
                         )
                     ));

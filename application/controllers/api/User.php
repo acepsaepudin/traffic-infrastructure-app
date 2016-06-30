@@ -154,54 +154,6 @@ class User extends CI_Controller
 							)
 						)
 					);
-           /* $config['upload_path']          = './uploads/';
-			$config['allowed_types']        = 'gif|jpg|png';
-			$config['max_size']             = 100;
-			$config['max_width']            = 1024;
-			$config['max_height']           = 768;
-			$this->load->library('upload', $config);
-            
-            $this->upload->display_errors('', '');
-			if ( ! $this->upload->do_upload('foto'))
-			{
-                
-                 $image = $_POST['foto'];
-                 $path = "./uploads/tes.png";
-                 file_put_contents($path,base64_decode($image));
-				return $this->output
-					->set_content_type('application/json')
-					->set_status_header(200)
-					->set_output(json_encode(array(
-								'error' => 0,
-								'message' => $this->upload->display_errors()
-							)
-						)
-					);
-			}
-			else
-			{
-                $image = $this->upload->data();
-                $data = [
-                    'id_pelapor' => $this->input->post('user_id'),
-                    'tanggal' => date('Y-m-d H:i:s'),
-                    'status' => 1,
-                    'foto' => $image['file_name'],
-                    'deskripsi' => $this->input->post('deskripsi')
-                ];
-                $this->load->model('kerusakan_model');
-                $this->kerusakan_model->save($data);
-
-                return $this->output
-					->set_content_type('application/json')
-					->set_status_header(200)
-					->set_output(json_encode(array(
-								'error' => 1,
-								'message' => 'Berhasil melaporkan kerusakan'
-							)
-						)
-					);
-
-            }*/
         }
     }
        

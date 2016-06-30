@@ -88,7 +88,7 @@
             <div class="form-group has-error form-group-password">
               <label for="inputEmail3" class="col-sm-2 control-label">Password</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                 <p class="error-message-password"></p>
               </div>
             </div>

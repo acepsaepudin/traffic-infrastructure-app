@@ -9,7 +9,7 @@ class Home extends MY_Controller {
     public function __construct()
     {
         parent::__construct();
-        //$this->authenticate->check_login();
+        $this->authenticate->check_login();
     }
     
 	public function index()

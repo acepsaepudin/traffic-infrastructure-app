@@ -31,7 +31,7 @@ class Kategori extends MY_Controller
 			} else {
 				$nama = $this->input->post('nama');
 				//save to database
-				$this->kategori_model->save(array('nama_kategori' => $nama));
+				$this->kategori_model->save(array('nama_kategori' => $nama, 'id_pengguna' => $this->session->userdata('id')));
 				$this->session->set_flashdata('sukses', 'sukses tambah kategori');
 				echo json_encode(array('error' => 1, 'message' => 'sukses tambah kategori', 'url' => site_url('kategori')));
 				exit();
@@ -67,7 +67,7 @@ class Kategori extends MY_Controller
 				echo json_encode(['error' => 0, 'message' => form_error('nama'), 'url' => site_url('kategori')]);
 				exit();
 			} else {
-				$this->kategori_model->update(['nama_kategori' => $this->input->post('nama')], ['id' => $this->input->post('id_edit')]);
+				$this->kategori_model->update(['nama_kategori' => $this->input->post('nama'), 'id_pengguna' => $this->session->userdata('id')], ['id' => $this->input->post('id_edit')]);
 				$message = 'Data berhasil di update.';
 				$this->session->set_flashdata('sukses', $message);
 				echo json_encode(['error' => 1, 'message' => $message, 'url' => site_url('kategori')]);

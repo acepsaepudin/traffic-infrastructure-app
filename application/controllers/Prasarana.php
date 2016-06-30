@@ -47,7 +47,8 @@ class Prasarana extends MY_Controller {
                     'lokasi' => $this->input->post('lokasi'),
                     'latitude' => $this->input->post('latitude'),
                     'longitude' => $this->input->post('longitude'),
-                    'kategori_id_kategori' => $this->input->post('kategori')
+                    'kategori_id_kategori' => $this->input->post('kategori'),
+                    'id_pengguna' => $this->session->userdata('id')
                 );
 				//save to database
 				$this->Prasarana_model->save($insert_data);
@@ -101,7 +102,8 @@ class Prasarana extends MY_Controller {
                             'lokasi' => $this->input->post('lokasi_edit'),
                             'longitude' => $this->input->post('longitude_edit'),
                             'latitude' => $this->input->post('latitude_edit'),
-                            'kategori_id_kategori' => $this->input->post('kategori_edit')
+                            'kategori_id_kategori' => $this->input->post('kategori_edit'),
+                            'id_pengguna' => $this->session->userdata('id')
                         );
 				$this->Prasarana_model->update($insert_data, ['id' => $this->input->post('id_edit')]);
 				$message = 'Data berhasil di update.';

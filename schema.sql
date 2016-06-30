@@ -26,6 +26,7 @@ create table prasarana(
     longitude varchar(200),
     latitude varchar(200),
     kategori_id_kategori int(11),
+    id_pengguna int(11),
     primary key(id)
 );
 
