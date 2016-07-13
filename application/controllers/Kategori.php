@@ -8,7 +8,7 @@ class Kategori extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('kategori_model');
+		$this->load->model(['kategori_model', 'prasarana_model']);
 	}
 
 	public function index()
@@ -86,6 +86,16 @@ class Kategori extends MY_Controller
 
 			$data = $this->kategori_model->get_by_id(array('id' => $id));
 			if ($data) {
+				//delete prasarana
+				$pra = $this->prasarana_model->get_all(['kategori_id_kategori' => $id]);
+				if ($pra->num_rows() > 0) {
+					
+					$pra_data = $pra->result();
+					foreach ($pra_data as $key => $value) {
+						$this->prasarana_model->destroy(['kategori_id_kategori' => $value->kategori_id_kategori]);
+					}
+				}
+				//delete kategori
 				$this->kategori_model->destroy(array('id' => $id));
 				$message = 'sukses menghapus kategori';
 				$this->session->set_flashdata('sukses', $message);

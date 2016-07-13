@@ -25,7 +25,8 @@
           <td><?php echo $p->lokasi; ?></td>
           <td><?php echo $p->longitude; ?></td>
           <td><?php echo $p->latitude; ?></td>
-          <td><?php echo $p->kategori_id_kategori; ?></td>
+          
+          <td><?php echo $p->kategori; ?></td>
           <td>
             <button class="btn btn-sm btn-info btn-flat" onclick="EditPrasarana(<?php echo $p->id ?>)">Edit</button>
             <button class="btn btn-sm btn-danger btn-flat" onclick="deleteFunc(<?php echo $p->id ?>)">Delete</button>

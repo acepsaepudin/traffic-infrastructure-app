@@ -14,7 +14,14 @@ class Prasarana extends MY_Controller {
     {
         $this->stencil->js(array('jquery.dataTables.min', 'dataTables.bootstrap.min','prasarana/prasarana.js'));
 		$this->stencil->css('dataTables.bootstrap');
-		$data['prasarana'] = $this->Prasarana_model->get_all()->result();
+		$prasarana = $this->Prasarana_model->get_all()->result();
+		//reformat data
+		if ($prasarana) {
+			foreach ($prasarana as $key => $value) {
+				$prasarana[$key]->kategori = $this->Kategori_model->get_by_id(['id' => $value->kategori_id_kategori])->nama_kategori;
+			}
+		}
+		$data['prasarana'] = $prasarana;
 	    $data['kategori'] = $this->Kategori_model->get_all()->result();	
 		$this->stencil->paint('prasarana/index', $data);
  
