@@ -15,6 +15,7 @@ create table pengguna(
     email varchar(200),
     password varchar(200),
     status varchar(200),
+    token varchar(200),
     primary key(id)
 );
 

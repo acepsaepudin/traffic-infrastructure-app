@@ -261,5 +261,18 @@ if (!function_exists('asset_url'))
 	}
 }
 
+if (!function_exists('image_url'))
+{
+	function image_url($src = NULL)
+	{
+		if (is_null($src)) 
+		{
+			return base_url().'uploads/';
+		}
+		
+		return base_url().'uploads/'.$src;
+	}
+}
+
 /* End of file stencil_helper.php */
 /* Location: ./application/helpers/stencil_helper.php */ 

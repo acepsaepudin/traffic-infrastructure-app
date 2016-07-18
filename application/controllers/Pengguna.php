@@ -5,6 +5,7 @@ class Pengguna extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('pengguna_model');
+		$this->authenticate->granted_user(1);
 	}
 
     public function index()

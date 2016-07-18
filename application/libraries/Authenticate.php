@@ -66,24 +66,46 @@ Class Authenticate {
     }
     
     /**
-     * only admin can view
+     * only granted user can view
      *
      * @return void
      */
-    public function only_admin()
+    public function granted_user($status)
     {
         $this->CI->load->model('pengguna_model');
-        $admin = $this->CI->pengguna_model->get_by_id([
+        $user = $this->CI->pengguna_model->get_by_id([
             'id' => $this->CI->session->userdata('id'),
             'email' => $this->CI->session->userdata('email')
         ]);
-        if ($admin) {
+        if ($user->status == $status) {
             return true;
         } else {
             redirect('auth/login');
         }
         
     }
+
+    /**
+     * The user can't access the function
+     *
+     * @return void
+     */
+    public function denied_user($status)
+    {
+        $this->CI->load->model('pengguna_model');
+        $user = $this->CI->pengguna_model->get_by_id([
+            'id' => $this->CI->session->userdata('id'),
+            'email' => $this->CI->session->userdata('email')
+        ]);
+        if ($user->status == $status) {
+            redirect('auth/login');
+        } else {
+            return true;
+        }
+        
+    }
+
+
     
     
 }

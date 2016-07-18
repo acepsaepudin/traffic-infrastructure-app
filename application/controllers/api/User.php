@@ -15,7 +15,7 @@ class User extends CI_Controller
     public function register()
     {
         $this->form_validation->set_rules('name', 'name' ,'required');
-        $this->form_validation->set_rules('email', 'email' ,'required|is_unique[pelapor.email]|valid_email');
+        $this->form_validation->set_rules('email', 'email' ,'required|is_unique[pengguna.email]|valid_email');
         $this->form_validation->set_rules('password', 'password', 'required');
         $this->form_validation->set_rules('confirmation_password', 'password Confirmation', 'required|matches[password]');
         $this->form_validation->set_error_delimiters('', '');
@@ -37,6 +37,7 @@ class User extends CI_Controller
                 'email' => $this->input->post('email'),
                 'password' => md5($this->input->post('password')),
                 'token' => random_string('unique'),
+                'nama' => $this->input->post('name')
             ]);
 
             return $this->output
@@ -133,10 +134,10 @@ class User extends CI_Controller
             $image = $_POST['foto'];
             $des = $_POST['deskripsi'];
             $name_image = time().'.jpg';
-            $path = "./uploads/".$name_image;
+            $path = "./assets/uploads/".$name_image;
             file_put_contents($path,base64_decode($image));
             $data = [
-                    'id_pelapor' => $this->input->post('id_pelapor'),
+                    'id_pengguna' => $this->input->post('id_pelapor'),
                     'tanggal' => date('Y-m-d H:i:s'),
                     'status' => 1,
                     'foto' => $name_image,

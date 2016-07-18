@@ -5,4 +5,9 @@ if ( ! function_exists('asset_url()'))
 	{
 	  return base_url().'assets/';
 	}
+
+	function image_url()
+	{
+		return base_url().'uploads/';
+	}
 }
