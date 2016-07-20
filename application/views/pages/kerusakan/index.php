@@ -29,7 +29,7 @@
           <td><?php echo $k->deskripsi; ?></td>
           <td><?=konversi('status_kerusakan', $k->status)?></td>
           <td>
-            <button class="btn btn-sm btn-info btn-flat" onclick="EditKaryawan(<?php echo $k->id ?>)">Edit</button>
+            <button class="btn btn-sm btn-info btn-flat" onclick="EditKerusakan(<?php echo $k->id ?>)">Edit</button>
             <!-- <button class="btn btn-sm btn-danger btn-flat" onclick="deleteFunc(<?php echo $k->id ?>)">Delete</button> -->
           </td>
         </tr>
@@ -157,7 +157,7 @@
 </div>
 
 <!--modal update kategori -->
-<div class="modal fade update-modal-karyawan">
+<div class="modal fade update-modal-kerusakan">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -166,59 +166,49 @@
       </div>
       <div class="modal-body">
         <!-- <form class="form-horizontal form-new-kategori"> -->
-        <?php echo form_open('pengguna/update',array('class' => 'form-horizontal form-update-karyawan')) ?>
+        <?php echo form_open('kerusakan/update',array('class' => 'form-horizontal form-update-karyawan')) ?>
           <div class="box-body">
-            <div class="form-group form-group-nama-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">Nama</label>
+            <div class="form-group form-group-prasarana-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Nama Prasarana</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="prasarana_edit" id="prasarana-edit" disabled="true">
+                <p class="error-message-prasarana-edit"></p>
+              </div>
+            </div>
+
+            <div class="form-group form-group-pelapor-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Pelapor</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="pelapor_edit" id="pelapor-edit" disabled="true">
+                <p class="error-message-deskripsi-edit"></p>
+              </div>
+            </div>
+
+            <div class="form-group form-group-deskripsi-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Deskripsi</label>
               <div class="col-sm-10">
                 <input type="hidden" name="id_edit" id="id_edit">
-                <input type="text" class="form-control" name="nama_edit" id="nama-edit" >
-                <p class="error-message-nama-edit"></p>
+                <input type="text" class="form-control" name="deskripsi_edit" id="deskripsi-edit" disabled="true">
+                <p class="error-message-deskripsi-edit"></p>
               </div>
             </div>
 
-            <div class="form-group form-group-jenis_kelamin-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">Jenis Kelamin</label>
+            <div class="form-group form-group-tanggal-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Tanggal</label>
               <div class="col-sm-10">
-                <select class="form-control" name="jenis_kelamin_edit" id="jenis_kelamin-edit">
-                   <option value="1">Laki-laki</option>
-                   <option value="2">Perempuan</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group form-group-notlp-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">No Tlp</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" name="notlp_edit" id="notlp-edit" >
-                <p class="error-message-notlp-edit"></p>
-              </div>
-            </div>
-
-            <div class="form-group form-group-email-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" name="email_edit" id="email-edit" >
-                <p class="error-message-email-edit"></p>
+                <input type="text" class="form-control" name="tanggal_edit" id="tanggal-edit" disabled="true">
+                <p class="error-message-tanggal-edit"></p>
               </div>
             </div>
  
-            <div class="form-group form-group-jabatan-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">Jabatan</label>
+            <div class="form-group form-group-status-edit">
+              <label for="inputEmail3" class="col-sm-2 control-label">Status</label>
               <div class="col-sm-10">
-                <select class="form-control" name="jabatan_edit" id="jabatan-edit">
-                  <?php foreach($this->config->item('status_pengguna') as $k => $v):?>
+                <select class="form-control" name="status_edit" id="status-edit">
+                  <?php foreach($this->config->item('status_kerusakan') as $k => $v):?>
                     <option value="<?=$k?>"><?=$v?></option>
                   <?php endforeach?>
                 </select>
-              </div>
-            </div>
-
-            <div class="form-group form-group-alamat-edit">
-              <label for="inputEmail3" class="col-sm-2 control-label">Alamat</label>
-              <div class="col-sm-10">
-                <textarea class="form-control" rows="3" name="alamat_edit" id="alamat-edit"></textarea>
-                <p class="error-message-alamat-edit"></p>
               </div>
             </div>
 
