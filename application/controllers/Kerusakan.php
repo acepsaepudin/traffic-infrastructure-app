@@ -9,39 +9,15 @@ class Kerusakan extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['kerusakan_model','prasarana_model','pengguna_model']);
+		$this->load->model(['kerusakan_model','prasarana_model','pengguna_model','perbaikan_model']);
 	}
 
 	public function index()
 	{
 		$this->stencil->js(array('jquery.dataTables.min', 'dataTables.bootstrap.min','kerusakan/kerusakan.js'));
 		$this->stencil->css('dataTables.bootstrap');
-		//check pegawai kantor
-		if ($this->session->userdata('status') == 5) {
-			$kerusakan = $this->kerusakan_model->get_all('status in (1,3,4,6)')->result();
-		}
-		if ($this->session->userdata('status') == 3) {
-			$kerusakan = $this->kerusakan_model->get_all('status in (5,8)')->result();
-		}
-		if ($this->session->userdata('status') == 4) {
-			$kerusakan = $this->kerusakan_model->get_all('status in (2,7)')->result();
-		}
-		if ($this->session->userdata('status') == 1) {
-			$kerusakan = $this->kerusakan_model->get_all()->result();
-		}
-		//data prasarana
-		if ($kerusakan) {
-			foreach ($kerusakan as $key => $value) {
-				$nama_pras = $this->prasarana_model->get_by_id(['id' => $value->id_prasarana]);
-				if ($nama_pras) {
-					$kerusakan[$key]->nama_prasarana = $nama_pras->nama;
-				} else {
-					$kerusakan[$key]->nama_prasarana = 'Belum dimasukan prasarana';
-				}
-			}
-		}
 		
-		$data['kerusakan'] = $kerusakan;
+		$data['kerusakan'] = $this->kerusakan_model->get_all_kerusakan();
 		$data['jabatan'] = $this->config->item('status_pengguna');
 		$this->stencil->paint('kerusakan/index', $data);
 	}
@@ -110,5 +86,136 @@ class Kerusakan extends MY_Controller
 		}
 
 		redirect('kategori');
+	}
+
+	public function edit_prasarana($id)
+	{
+		$this->form_validation->set_rules('nama_prasarana', 'Nama Prasarana', 'required');
+		if ($this->form_validation->run() == false) {
+			//get data kerusakan
+			$data['kerusakan'] = $this->kerusakan_model->get_by_id(['id' => $id]);
+			
+			//get data prasarana
+			$data['prasarana'] = $this->prasarana_model->get_all()->result();
+			$this->stencil->paint('kerusakan/edit_prasarana', $data);	
+		} else {
+			//update data kerusakan dengan input prasarana
+			$this->kerusakan_model->update([
+					'id_prasarana' => $this->input->post('nama_prasarana')
+				],
+				['id' => $id]);
+			$this->session->set_flashdata('sukses', 'Sukses Update Kerusakan');
+			redirect('kerusakan');	
+
+		}
+	}
+
+	public function edit_kerusakan($id,$status)
+	{
+		//update data kerusakan dengan input prasarana
+		if ($id) {
+			
+			$this->kerusakan_model->update([
+					'status' => $status
+				],
+				['id' => $id]);
+			$this->session->set_flashdata('sukses', 'Sukses Update Kerusakan');
+			redirect('kerusakan');	
+		} else {
+			redirect('kerusakan');
+		}
+	}
+
+	public function buat_estimasi($id_kerusakan)
+	{
+		$this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
+		$this->form_validation->set_rules('harga', 'Harga', 'required');
+		//get data kerusakan
+		$kerusakan = $this->kerusakan_model->get_by_id(['id' => $id_kerusakan]);
+		$data['prasarana'] = $this->prasarana_model->get_by_id(['id' => $kerusakan->id_prasarana]);
+		$data['pelapor'] = $this->pengguna_model->get_by_id(['id' => $kerusakan->id_pengguna]);
+		$data['kerusakan'] = $kerusakan;
+		if ($this->form_validation->run() == false) {
+			
+			//get session pembelian
+			if (isset($_SESSION['pembelian'])) {
+				$data['pembelian'] = $_SESSION['pembelian'];
+			}
+			$this->stencil->paint('kerusakan/buat_estimasi', $data);
+		} else {
+			if ($this->session->userdata('pembelian')) {
+				$old = $this->session->userdata('pembelian');
+				foreach ($old as $key => $value) {
+					$old[] = $this->input->post();
+				}
+				$this->session->set_userdata('pembelian', $old);
+			} else {
+				$array = array();
+				$array[] = $this->input->post();
+				$this->session->set_userdata('pembelian', $array);
+			}
+			$this->session->set_flashdata('sukses', 'Berhasil Menambah Estimasi');
+			$this->stencil->paint('kerusakan/buat_estimasi', $data);
+		}
+	}
+
+	public function remove_ses_estimasi($id,$id_kerusakan)
+	{
+		unset($_SESSION['pembelian'][$id]);
+		$this->session->set_flashdata('sukses', 'Berhasil Menghapus Estimasi');
+		redirect('kerusakan/buat_estimasi/'.$id_kerusakan);
+		// $this->stencil->paint('kerusakan/buat_estimasi', $data);
+	}
+
+	public function selesai_estimasi($id_kerusakan)
+	{
+		if ($id_kerusakan) {
+			$session_pembelian = $_SESSION['pembelian'];
+			foreach ($session_pembelian as $key => $value) {
+				$session_pembelian[$key]['status'] = 1;
+				$session_pembelian[$key]['id_kerusakan'] = $id_kerusakan;
+			}
+			
+			foreach ($session_pembelian as $key => $value) {
+				$this->perbaikan_model->save($value);
+			}
+			//unset session
+			unset($_SESSION['pembelian']);
+
+			//update status kerusakan
+			$this->kerusakan_model->update([
+				'status' => 5
+				],[
+				'id' => $id_kerusakan
+				]);
+
+			$this->session->set_flashdata('sukses', 'Berhasil Membuat Estimasi');
+			redirect('kerusakan');
+		}
+	}
+
+	public function detail_estimasi($id_kerusakan)
+	{
+		if ($id_kerusakan) {
+			$data['estimasi'] = $this->perbaikan_model->get_all(['id_kerusakan' => $id_kerusakan])->result();
+			$data['id_kerusakan'] = $id_kerusakan;
+			$this->stencil->paint('kerusakan/detail_estimasi', $data);
+		}
+	}
+
+	public function terima_estimasi($id_kerusakan)
+	{
+		if ($id_kerusakan) {
+			//update perbaikan estimasi data
+			$estimasi = $this->perbaikan_model->get_all(['id_kerusakan' => $id_kerusakan])->result();
+			foreach ($estimasi as $key => $value) {
+				$this->perbaikan_model->update(['status' => 2], ['id_kerusakan' => $id_kerusakan]);
+			}
+
+			//update status kerusakan
+			$this->kerusakan_model->update(['status' => 6], ['id' => $id_kerusakan]);
+			$this->session->set_flashdata('sukses', 'Berhasil Approve Estimasi');
+			redirect('kerusakan');
+		}
 	}
 }

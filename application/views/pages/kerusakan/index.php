@@ -1,5 +1,5 @@
 <div class="col-xs-12">
-<div class="box">
+  <div class="box">
   <div class="box-header">
     <h3 class="box-title">Data Kerusakan </h3>
   <div class="pull-right">
@@ -29,7 +29,48 @@
           <td><?php echo $k->deskripsi; ?></td>
           <td><?=konversi('status_kerusakan', $k->status)?></td>
           <td>
-            <button class="btn btn-sm btn-info btn-flat" onclick="EditKerusakan(<?php echo $k->id ?>)">Edit</button>
+          <!-- pegawai kantor -->
+          <?php if($this->session->userdata('status') == 5):?>
+            <?php if($k->id_prasarana == ''):?>
+              <a href="<?= site_url('kerusakan/edit_prasarana/'.$k->id);?>" class="btn btn-flat btn-info">Masukan ke Prasarana</a>
+            <?php else:?>
+              <?php if($k->status == 1):?>
+              <a href="<?= site_url('kerusakan/edit_kerusakan/'.$k->id.'/'.'2');?>" class="btn btn-flat btn-success">Cek Tim Lapangan</a>
+              <?php endif;?>
+              <!-- ada kerusakan dan buat estimasi -->
+              <?php if($k->status == 4):?>
+              <a href="<?= site_url('kerusakan/buat_estimasi/'.$k->id);?>" class="btn btn-flat btn-warning">Buat Estimasi</a>
+              <?php endif;?>
+              <!-- estimasi diapprove -->
+              <?php if($k->status == 6):?>
+              <a href="<?= site_url('kerusakan/edit_kerusakan/'.$k->id.'/'.'7');?>" class="btn btn-flat btn-warning">Lakukan Perbaikan</a>
+              <?php endif;?>
+
+            <?php endif;?>
+          <?php endif;?><!--end if pegawai kantor-->
+          <!-- pegawai lapangan -->
+          <?php if($this->session->userdata('status') == 4):?>
+            <?php if($k->status == 2):?>
+              <a href="<?= site_url('kerusakan/edit_kerusakan/'.$k->id.'/'.'3');?>" class="btn btn-flat btn-info">Tidak Ada Kerusakan</a>
+              <a href="<?= site_url('kerusakan/edit_kerusakan/'.$k->id.'/'.'4');?>" class="btn btn-flat btn-danger">Ada Kerusakan</a>
+            <?php endif;?>
+            <!-- perbaikan dilapangan sudah dilakukan,maka update ke 8 -->
+            <?php if($k->status == 7):?>
+              <a href="<?= site_url('kerusakan/edit_kerusakan/'.$k->id.'/'.'8');?>" class="btn btn-flat btn-info">Sudah Diperbaiki</a>
+            <?php endif;?>
+          <?php endif;?>
+          <!-- pegawai lapangan -->
+          
+          <!-- Kepala Dinas -->
+          <?php if($this->session->userdata('status') == 3):?>
+            <?php if($k->status == 5):?>
+              <a href="<?= site_url('kerusakan/detail_estimasi/'.$k->id);?>" class="btn btn-flat btn-info">Detail Estimasi</a>
+            <?php endif;?>
+
+            <?php endif;?>
+
+          <!-- Kepala Dinas -->
+            <!-- <button class="btn btn-sm btn-info btn-flat" onclick="EditKerusakan(<?php echo $k->id ?>)">Edit</button> -->
             <!-- <button class="btn btn-sm btn-danger btn-flat" onclick="deleteFunc(<?php echo $k->id ?>)">Delete</button> -->
           </td>
         </tr>

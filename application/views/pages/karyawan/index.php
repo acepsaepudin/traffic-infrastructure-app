@@ -13,7 +13,7 @@
           <th>Nama</th>
           <th>Alamat</th>
           <th>Email</th>
-          <th>Jabatan</th>
+          <th>Role</th>
           <th>Action</th>
         </tr>
       </thead>

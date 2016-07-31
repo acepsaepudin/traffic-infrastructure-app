@@ -6,12 +6,24 @@ $config['status_pengguna'] = array(
 	'4' => 'Pegawai Lapangan',
 	'5' => 'Pegawai Kantor'
 	);
+
+$config['status_perbaikan'] = array(
+	'1' => 'Menuggu Approval Kepala Dinas',
+	'2' => 'Diterima',
+	'3' => 'Ditolak',
+	);
+$config['status_perbaikan_detail'] = array(
+	'1' => 'Belum Terpasang',
+	'2' => 'Sudah Terpasang',
+	);
+
 $config['status_kerusakan'] = array(
 	'1' => 'Kerusakan Baru',
 	'2' => 'Pengecekan Tim Lapangan',
 	'3' => 'Tidak Ada Kerusakan',
-	'4' => 'Ada Kerusakang',
-	'5' => 'Estimasi Biaya Kerusakan',
+	'4' => 'Ada Kerusakan',
+	'5' => 'Dibuat Estimasi Biaya Kerusakan',
+	// '6' => 'Estimasi Ditolak',
 	'6' => 'Estimasi Telah Di Approve',
 	'7' => 'Perbaikan Tim Lapangan',
 	'8' => 'Sudah Diperbaiki'

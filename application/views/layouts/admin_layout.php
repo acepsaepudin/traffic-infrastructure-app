@@ -167,33 +167,33 @@
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li>
-              <a href="#">
+              <a href="<?php echo site_url('home');?>">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa pull-right"></i>
               </a>
             </li>
             <?php if($this->session->userdata('status') == 1):?>
             <li>
               <a href="<?php echo site_url('pengguna') ?>">
-                <i class="fa fa-th"></i> <span>Pengguna</span>
+                <i class="fa fa-users"></i> <span>Pengguna</span>
               </a>
             </li>
           <?php endif?>
           <?php if(in_array($this->session->userdata('status'), array(1,3,5))):?>
             <li>
               <a href="<?php echo site_url('kategori') ?>">
-                <i class="fa fa-th"></i> <span>Kategori</span>
+                <i class="fa fa-archive"></i> <span>Kategori</span>
               </a>
             </li>
 
             <li>
               <a href="<?php echo site_url('prasarana') ?>">
-                <i class="fa fa-th"></i> <span>Prasarana</span>
+                <i class="fa fa-bars"></i> <span>Prasarana</span>
               </a>
             </li>
           <?php endif;?>
             <li>
               <a href="<?php echo site_url('kerusakan') ?>">
-                <i class="fa fa-th"></i> <span>Kerusakan</span>
+                <i class="fa fa-chain-broken"></i> <span>Kerusakan</span>
               </a>
             </li>
           </ul>
@@ -237,6 +237,12 @@
                 <?php echo $this->session->flashdata('error');?>
             </div>
           <?php endif;?>
+          <?php if(validation_errors()):?>
+               <div class="alert fresh-color alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <?php echo validation_errors();?>
+                </div>
+            <?php endif;?>
           <div class="row">
 
           <!--  for content!-->

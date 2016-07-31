@@ -13,7 +13,7 @@ class Home extends MY_Controller {
     }
     
 	public function index()
-	{
+	{  
         $this->stencil->title('Home');
 		// $this->stencil->layout('admin_layout');
 		// $this->stencil->slice('nav');
