@@ -3,7 +3,9 @@
   <div class="box-header">
     <h3 class="box-title">Data Kerusakan </h3>
   <div class="pull-right">
-    <!-- <a href="javascript:void(0)" onclick="newFunc()" class="btn btn-lg btn-success btn-flat">new</a><br> -->
+  <?php if($this->session->userdata('status') == 5):?>
+    <a href="<?=site_url('kerusakan/add')?>"  class="btn btn-lg btn-success btn-flat">new</a><br>
+  <?php endif;?>
   </div>
   </div><!-- /.box-header -->
   <div class="box-body">

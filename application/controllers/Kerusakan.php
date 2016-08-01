@@ -218,4 +218,46 @@ class Kerusakan extends MY_Controller
 			redirect('kerusakan');
 		}
 	}
+
+	public function add()
+	{
+		$this->form_validation->set_rules('deskripsi','Deskripsi','required');
+		$data['prasarana'] = $this->prasarana_model->get_all()->result();
+
+		if ($this->form_validation->run() == false) {
+
+			$this->stencil->paint('kerusakan/add', $data);
+		} else {
+			$config['upload_path']          = './assets/uploads/';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 1024;
+            $config['max_width']            = 1024;
+            $config['max_height']           = 1024;
+
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload('foto'))
+            {
+                    // $error = array('error' => $this->upload->display_errors());
+                    $this->session->set_flashdata('error', $this->upload->display_errors());
+                    $this->stencil->paint('kerusakan/add', $data);
+            }
+            else
+            {
+                    $uploadan = $this->upload->data();
+                    $foto = $uploadan['file_name'];
+                    
+					$this->kerusakan_model->save([
+							'tanggal' => date('Y-m-d'),
+							'foto' => $foto,
+							'deskripsi' => $this->input->post('deskripsi'),
+							'status' => 1,
+							'id_pengguna' => $this->session->userdata('id'),
+							'id_prasarana' => $this->input->post('prasarana')
+						]);
+                    $this->session->set_flashdata('sukses', 'Berhasil Menambah Data Kerusakan');
+                    redirect('kerusakan');
+            }
+		}
+	}
 }

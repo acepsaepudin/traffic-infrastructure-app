@@ -68,6 +68,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="<?php echo asset_url() ?>js/demo.js"></script>
     <?php echo $js; ?>
+    <!-- highcharts -->
     <script type="text/javascript">
     var base_url = "<?php echo base_url()?>";
     </script>
@@ -171,7 +172,7 @@
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa pull-right"></i>
               </a>
             </li>
-            <?php if($this->session->userdata('status') == 1):?>
+            <?php if(($this->session->userdata('status') == 1) || ($this->session->userdata('status') == 5)):?>
             <li>
               <a href="<?php echo site_url('pengguna') ?>">
                 <i class="fa fa-users"></i> <span>Pengguna</span>
@@ -196,6 +197,13 @@
                 <i class="fa fa-chain-broken"></i> <span>Kerusakan</span>
               </a>
             </li>
+            <?php if($this->session->userdata('status') == 3): ?>
+            <li>
+              <a href="<?php echo site_url('laporan') ?>">
+                <i class="fa fa-area-chart"></i> <span>Laporan</span>
+              </a>
+            </li>
+          <?php endif;?>
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -243,6 +251,7 @@
                     <?php echo validation_errors();?>
                 </div>
             <?php endif;?>
+
           <div class="row">
 
           <!--  for content!-->

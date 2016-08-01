@@ -63,4 +63,13 @@ class Kerusakan_model extends MY_Model
 		return $kerusakan;
 		
 	}
+
+	public function laporan_kerusakan()
+	{
+		return $this->db->select('*')
+			->from($this->table)
+			->where('tanggal >= ',date('Y-m-01'))
+			->where('tanggal <=', date('Y-m-t'))
+			->get();
+	}
 }

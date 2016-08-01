@@ -34,7 +34,7 @@ create table prasarana(
 DROP TABLE IF EXISTS kerusakan;
 create table kerusakan(
     id int(11) not null auto_increment,
-    tanggal datetime,
+    tanggal date,
     deskripsi varchar(200),
     foto varchar(200),
     status int(1),
@@ -64,7 +64,7 @@ create table perbaikan(
 DROP TABLE IF EXISTS detail_perbaikan;
 create table detail_perbaikan(
     id int(11) not null auto_increment,
-    tanggal datetime,
+    tanggal date,
     status varchar(200),
     feedback varchar(200),
     id_pengguna int(11),
