@@ -9,7 +9,7 @@ class Kerusakan extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['kerusakan_model','prasarana_model','pengguna_model','perbaikan_model']);
+		$this->load->model(['kerusakan_model','prasarana_model','pengguna_model','perbaikan_model','kerusakandetail_model']);
 	}
 
 	public function index()
@@ -256,6 +256,55 @@ class Kerusakan extends MY_Controller
 							'id_prasarana' => $this->input->post('prasarana')
 						]);
                     $this->session->set_flashdata('sukses', 'Berhasil Menambah Data Kerusakan');
+                    redirect('kerusakan');
+            }
+		}
+	}
+
+	public function upload_laporan_lapangan($id_kerusakan,$status)
+	{
+		$this->form_validation->set_rules('deskripsi','Deskripsi','required');
+		// $this->form_validation->set_rules('foto','Foto','required');
+		$data['kerusakan'] = $this->kerusakan_model->get_by_id(['id' => $id_kerusakan]);
+		$data['status'] = $status;
+		if ($this->form_validation->run() == false) {
+			$this->stencil->paint('kerusakan/upload_laporan_lapangan', $data);
+		} else {
+			$config['upload_path']          = './assets/uploads/';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 1024;
+            $config['max_width']            = 1024;
+            $config['max_height']           = 1024;
+
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload('foto'))
+            {
+                    // $error = array('error' => $this->upload->display_errors());
+                    $this->session->set_flashdata('error', $this->upload->display_errors());
+                    $this->stencil->paint('kerusakan/upload_laporan_lapangan', $data);
+            }
+            else
+            {
+            	
+                    $uploadan = $this->upload->data();
+                    $foto = $uploadan['file_name'];
+                    
+					$this->kerusakandetail_model->save([
+							// 'tanggal' => date('Y-m-d'),
+							'foto' => $foto,
+							'deskripsi' => $this->input->post('deskripsi'),
+							// 'status' => 1,
+							// 'id_pengguna' => $this->session->userdata('id'),
+							'id_kerusakan' => $id_kerusakan
+						]);
+
+					$this->kerusakan_model->update([
+						'status' => $status
+						],
+						['id' => $id_kerusakan]);
+
+                    $this->session->set_flashdata('sukses', 'Berhasil Update Data Kerusakan');
                     redirect('kerusakan');
             }
 		}

@@ -53,8 +53,8 @@
           <!-- pegawai lapangan -->
           <?php if($this->session->userdata('status') == 4):?>
             <?php if($k->status == 2):?>
-              <a href="<?= site_url('kerusakan/edit_kerusakan/'.$k->id.'/'.'3');?>" class="btn btn-flat btn-info">Tidak Ada Kerusakan</a>
-              <a href="<?= site_url('kerusakan/edit_kerusakan/'.$k->id.'/'.'4');?>" class="btn btn-flat btn-danger">Ada Kerusakan</a>
+              <a href="<?= site_url('kerusakan/upload_laporan_lapangan/'.$k->id.'/'.'3');?>" class="btn btn-flat btn-info">Tidak Ada Kerusakan</a>
+              <a href="<?= site_url('kerusakan/upload_laporan_lapangan/'.$k->id.'/'.'4');?>" class="btn btn-flat btn-danger">Ada Kerusakan</a>
             <?php endif;?>
             <!-- perbaikan dilapangan sudah dilakukan,maka update ke 8 -->
             <?php if($k->status == 7):?>

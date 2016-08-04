@@ -47,6 +47,7 @@ DROP TABLE IF EXISTS detail_kerusakan;
 create table detail_kerusakan(
     id int(11) not null auto_increment,
     deskripsi varchar(200),
+    foto varchar(255),
     id_kerusakan int(11),
     primary key(id)
 ); 
