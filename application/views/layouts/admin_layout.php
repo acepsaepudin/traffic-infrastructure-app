@@ -194,7 +194,11 @@
           <?php endif;?>
             <li>
               <a href="<?php echo site_url('kerusakan') ?>">
-                <i class="fa fa-chain-broken"></i> <span>Kerusakan</span>
+                <i class="fa fa-chain-broken"></i> 
+                <span>Kerusakan</span>
+                <!-- <span class="pull-right-container"> -->
+                  <span class="label label-primary pull-right">4</span>
+                <!-- </span> -->
               </a>
             </li>
             <?php if($this->session->userdata('status') == 3): ?>
