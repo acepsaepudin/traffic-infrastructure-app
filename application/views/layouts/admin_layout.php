@@ -67,6 +67,7 @@
     <script src="<?php echo asset_url() ?>js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?php echo asset_url() ?>js/demo.js"></script>
+    <script src="<?php echo asset_url() ?>js/index.js"></script>
     <?php echo $js; ?>
     <!-- highcharts -->
     <script type="text/javascript">
@@ -197,7 +198,7 @@
                 <i class="fa fa-chain-broken"></i> 
                 <span>Kerusakan</span>
                 <!-- <span class="pull-right-container"> -->
-                  <span class="label label-primary pull-right">4</span>
+                  <span class="label label-primary pull-right kerusakan-notif"></span>
                 <!-- </span> -->
               </a>
             </li>
