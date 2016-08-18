@@ -1,4 +1,19 @@
 $(function () {
+    var xyz = getrusak();
+    // console.log(xyz);
+    var tegeel = xyz.tgl;
+    tegeel = Object.keys(tegeel).map(function(key) {return tegeel[key]});
+    var ee = xyz.datarusak;
+    ee = Object.keys(ee).map(function(key){return ee[key]});
+    // console.log(ee);
+    var new_a = [];
+    for(var x in ee){
+        // console.log(ee[x]);
+        // new_a.push(ee[x].nama);
+        // new_a.push(ee[x].data);
+        new_a.push({name : ee[x].nama, data: Object.keys(ee[x].data).map(function(key) {return ee[x].data[key]})});
+    }
+    console.log(new_a);
     $('#container').highcharts({
         title: {
             text: 'Data Kerusakan Dalam 1 Bulan',
@@ -9,13 +24,13 @@ $(function () {
             x: -20
         },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            categories: tegeel
         },
         yAxis: {
             title: {
                 text: 'Total'
             },
+            allowDecimals: false,
             plotLines: [{
                 value: 0,
                 width: 1,
@@ -23,7 +38,7 @@ $(function () {
             }]
         },
         tooltip: {
-            valueSuffix: '°C'
+            valueSuffix: ''
         },
         legend: {
             layout: 'vertical',
@@ -31,18 +46,25 @@ $(function () {
             verticalAlign: 'middle',
             borderWidth: 0
         },
-        series: [{
-            name: 'Tokyo',
-            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-        }, {
-            name: 'New York',
-            data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-        }, {
-            name: 'Berlin',
-            data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-        }, {
-            name: 'London',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-        }]
+        series: new_a
+        // series: [{
+        //     name: 'Tokyo',
+        //     data: [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0]
+        // }]
     });
 });
+
+
+
+function getrusak() {
+    var xyz;
+    $.ajax({
+        url: "http://tia.local/laporan/get_kerusakan",
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            xyz = data;
+        }
+    });
+    return xyz;
+}

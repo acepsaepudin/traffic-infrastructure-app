@@ -10,10 +10,12 @@ class Laporan extends MY_Controller {
 
 	public function index()
 	{
-		echo date('Y-m-t');
-		die();
+		// echo date('Y-m-t');
+		// die();
+		$data['asdf'] = '';
+		// $data['arr'] = $this->get_kerusakan();
 		$this->stencil->js(array('highcharts','laporan/laporan'));
-		$this->stencil->paint('laporan/index');
+		$this->stencil->paint('laporan/index',$data);
 	}
 
 	public function get_kerusakan()
@@ -32,30 +34,32 @@ class Laporan extends MY_Controller {
 			'8' => 'Sudah Diperbaiki'
 		);
 		$array_status = array();
+		$tegel = array();
 		for ($i=1; $i<=$exp[2] ; $i++) { 
 			$array_status[1]['nama'] = $status['1'];
-			$array_status[1]['data']['tgl_'.$i] = 0;
+			$array_status[1]['data'][$i] = 0;
 
 			$array_status[2]['nama'] = $status['2'];
-			$array_status[2]['data']['tgl_'.$i] = 0;
+			$array_status[2]['data'][$i] = 0;
 
 			$array_status[3]['nama'] = $status['3'];
-			$array_status[3]['data']['tgl_'.$i] = 0;
+			$array_status[3]['data'][$i] = 0;
 
 			$array_status[4]['nama'] = $status['4'];
-			$array_status[4]['data']['tgl_'.$i] = 0;
+			$array_status[4]['data'][$i] = 0;
 
 			$array_status[5]['nama'] = $status['5'];
-			$array_status[5]['data']['tgl_'.$i] = 0;
+			$array_status[5]['data'][$i] = 0;
 
 			$array_status[6]['nama'] = $status['6'];
-			$array_status[6]['data']['tgl_'.$i] = 0;
+			$array_status[6]['data'][$i] = 0;
 
 			$array_status[7]['nama'] = $status['7'];
-			$array_status[7]['data']['tgl_'.$i] = 0;
+			$array_status[7]['data'][$i] = 0;
 
 			$array_status[8]['nama'] = $status['8'];
-			$array_status[8]['data']['tgl_'.$i] = 0;
+			$array_status[8]['data'][$i] = 0;
+			$tegel[$i] = $i;
 		}
 		for ($i=1; $i<=$exp[2]  ; $i++) { 
 			$get_data_by_date = $this->kerusakan_model->get_all(['tanggal' => date('Y-m-'.$i)]);
@@ -66,36 +70,39 @@ class Laporan extends MY_Controller {
 					$to_int = explode('-', $value->tanggal);
 					switch ($value->status) {
 						case '1':
-							$array_status[1]['data']['tgl_'.(int) $to_int[2]] +=1;
+							$array_status[1]['data'][(int) $to_int[2]] +=1;
 							break;
 						case '2':
-							$array_status[2]['data']['tgl_'.(int) $to_int[2]] +=1;
+							$array_status[2]['data'][(int) $to_int[2]] +=1;
 							break;
 						case '3':
-							$array_status[3]['data']['tgl_'.(int) $to_int[2]] +=1;
+							$array_status[3]['data'][(int) $to_int[2]] +=1;
 							break;
 						case '4':
-							$array_status[4]['data']['tgl_'.(int) $to_int[2]] +=1;
+							$array_status[4]['data'][(int) $to_int[2]] +=1;
 							break;
 						case '5':
-							$array_status[5]['data']['tgl_'.(int) $to_int[2]] +=1;
+							$array_status[5]['data'][(int) $to_int[2]] +=1;
 							break;
 						case '6':
-							$array_status[6]['data']['tgl_'.(int) $to_int[2]] +=1;
+							$array_status[6]['data'][(int) $to_int[2]] +=1;
 							break;
 						case '7':
-							$array_status[7]['data']['tgl_'.(int) $to_int[2]] +=1;
+							$array_status[7]['data'][(int) $to_int[2]] +=1;
 							break;
 						case '8':
-							$array_status[8]['data']['tgl_'.(int) $to_int[2]] +=1;
+							$array_status[8]['data'][(int) $to_int[2]] +=1;
 							break;
 					}
 				}
 			}
 		}
-		echo '<pre>';
-		print_r($array_status);
-		echo '</pre>';
-		exit;
+		// echo '<pre>';
+		// print_r($array_status);
+		// echo '</pre>';
+		// exit;
+		echo json_encode(['datarusak' => $array_status, 'tgl' => $tegel]);
+		exit();
+		// return $array_status;
 	}
 }
