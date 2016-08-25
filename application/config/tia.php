@@ -26,7 +26,7 @@ $config['status_kerusakan'] = array(
 	// '6' => 'Estimasi Ditolak',
 	'6' => 'Estimasi Telah Di Approve',
 	'7' => 'Perbaikan Tim Lapangan',
-	'9' => 'Siap Diperbaiki'
+	'9' => 'Siap Diperbaiki',
 	'8' => 'Sudah Diperbaiki'
 	);
 /*- kerusakan baru -> petugas kantor
