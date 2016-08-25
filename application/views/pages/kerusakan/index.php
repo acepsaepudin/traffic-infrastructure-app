@@ -58,6 +58,9 @@
             <?php endif;?>
             <!-- perbaikan dilapangan sudah dilakukan,maka update ke 8 -->
             <?php if($k->status == 7):?>
+              <a href="<?= site_url('kerusakan/edit_kerusakan/'.$k->id.'/'.'9');?>" class="btn btn-flat btn-info">Siap Diperbaiki</a>
+            <?php endif;?>
+            <?php if($k->status == 9):?>
               <a href="<?= site_url('kerusakan/edit_kerusakan/'.$k->id.'/'.'8');?>" class="btn btn-flat btn-info">Sudah Diperbaiki</a>
             <?php endif;?>
           <?php endif;?>
